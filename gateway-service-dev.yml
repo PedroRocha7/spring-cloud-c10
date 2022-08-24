@@ -1,0 +1,19 @@
+server:
+  port: 8080
+  
+spring:
+  eureka:
+    client:
+      service-url:
+        defaultZone: http://localhost:8080/eureka
+  cloud:
+    gateway:
+      routes:
+        -id: gameRoute #Identificando la ruta de service de juegos
+        uri: http://localhost:8082/ #URL donde ocurrira el redirect segun el predicate definido
+        predicates:
+          - Path=/games/** #Reglas de analisis de una request
+        -id: libraryRoute #Identificando la ruta de service de libros 
+        uri: http://localhost:8084 #URL donde ocurrira el redirect segun el predicate definido
+        predicates:
+          - Path=/library/** #Reglas de analisis de una request
